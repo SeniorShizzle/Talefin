@@ -222,7 +222,7 @@ public class SequentialSearchST<K, V>{
     @SuppressWarnings("unchecked")
     public Iterable<K> keys() { // CAUTION: Wanky shit going down below
         //
-        class STIterator implements Iterable {
+        return new Iterable<K>() {
             // WAT WAT WAT THE F*CK
             public Iterator<K> iterator() {
                 return new Iterator<K>() {
@@ -280,8 +280,7 @@ public class SequentialSearchST<K, V>{
 
                 };
             }
-        } // What the f*ck, is this Lisp?
-        return new STIterator();
+        }; // What the f*ck, is this Lisp?
     }
 }
 
