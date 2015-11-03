@@ -1,7 +1,7 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class SequentialSearchST<K, V>  {
+public class SequentialSearchST<K, V>{
 
 
 	private Node first;
@@ -11,7 +11,7 @@ public class SequentialSearchST<K, V>  {
     private K max;
 
 
-	private class Node {
+    private class Node {
 		K key;
 		V value;
 		Node next;
@@ -164,7 +164,7 @@ public class SequentialSearchST<K, V>  {
      * NOTE: This method has been deprecated. Please use {@link #delete(Object)} instead.
      *       This method has been found to have significant recursive overhead; the new
      *       implementation does not rely on recursion and is suitable for large lists.
-     *       
+     *
 	 * recursive delete implementation.
      *
 	 *
@@ -218,30 +218,34 @@ public class SequentialSearchST<K, V>  {
 	 *
 	 * @return iterator of keys in the table
 	 */
+    @SuppressWarnings("unchecked")
     public Iterable<K> keys() {
-        /*return new Iterable<>(Iterator ->
-                new Iterator<K>() {
+        class STIterator implements Iterable {
+
+            public Iterator<K> iterator() {
+                return new Iterator<K>() {
                     Node currentNode = first;
                     K current = currentNode.key;
 
-                    *//**
+
+                    /**
                      * Returns {@code true} if the iteration has more elements.
                      * (In other words, returns {@code true} if {@link #next} would
                      * return an element rather than throwing an exception.)
                      *
                      * @return {@code true} if the iteration has more elements
-                     *//*
+                     */
                     @Override
                     public boolean hasNext() {
                         return currentNode != null && currentNode.next != null;
                     }
 
-                    *//**
+                    /**
                      * Returns the next element in the iteration.
                      *
                      * @return the next element in the iteration
                      * @throws NoSuchElementException if the iteration has no more elements
-                     *//*
+                     */
                     @Override
                     public K next() {
                         currentNode = currentNode.next;
@@ -249,7 +253,7 @@ public class SequentialSearchST<K, V>  {
                         return current;
                     }
 
-                    *//**
+                    /**
                      * Removes from the underlying collection the last element returned
                      * by this iterator (optional operation).  This method can be called
                      * only once per call to {@link #next}.  The behavior of an iterator
@@ -265,15 +269,17 @@ public class SequentialSearchST<K, V>  {
                      *                                       method
                      * @implSpec The default implementation throws an instance of
                      * {@link UnsupportedOperationException} and performs no other action.
-                     *//*
+                     */
                     @Override
                     public void remove() {
 
 
                     }
-                });*/
 
-        return null;
+                };
+            }
+        }
+        return new STIterator();
     }
 }
 
