@@ -187,7 +187,6 @@ public class SequentialSearchST<K, V>{
 		return nd;
 	}
 
-
 	/**
 	 * is a key in the symbol table or not?
      *
@@ -202,7 +201,6 @@ public class SequentialSearchST<K, V>{
 	}
 
 	/**
-	 *
 	 * @return true if the table is empty, otherwise false
 	 */
 	public boolean isEmpty() {
