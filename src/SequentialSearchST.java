@@ -136,21 +136,43 @@ public class SequentialSearchST<K, V>  {
 	}
 
 	/**
-	 * deletes the key-value pair associated with the key from the symbol table
+	 * deletes the key-value pair associated with the key from the symbol table.
+     * Deprecates
 	 * @param key the key
 	 * @throws NullPointerException if the key is null
 	 */
 	public void delete(K key) {
-		first = delete(first, key);
+        if (key == null) return;
+        if (first == null) return; // No list
+        if (key.equals(first.key)){ // Catch the case where there is only one node
+            sz--;
+            first = first.next; // Garbage Collection will take care of this, don't worry
+            return;
+        }
+
+        for (Node current = first; current.next != null; current = current.next) {
+            if (key.equals(current.next.key)) {
+                sz--;
+                current.next = current.next.next; // ARC/Garbage Collection away!
+                return;
+            }
+        }
+		//first = delete(first, key); // No longer ned the recursive implementation
 	}
 
 	/**
+     * NOTE: This method has been deprecated. Please use {@link #delete(Object)} instead.
+     *       This method has been found to have significant recursive overhead; the new
+     *       implementation does not rely on recursion and is suitable for large lists.
+     *       
 	 * recursive delete implementation.
-	 *  what is wrong here?
+     *
+	 *
 	 * @param nd the current node
 	 * @param key the key
 	 * @return the node the current node should attach to
 	 */
+    @Deprecated
 	private Node delete(Node nd, K key) {
 		if (nd == null) return null;
 
