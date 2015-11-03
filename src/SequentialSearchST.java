@@ -7,7 +7,10 @@ public class SequentialSearchST<K, V>{
 	private Node first;
 	private int sz;
 
+    /** The minimum value stored in the list */
     private K min;
+
+    /** The maximum value stored in the list */
     private K max;
 
 
@@ -219,9 +222,10 @@ public class SequentialSearchST<K, V>{
 	 * @return iterator of keys in the table
 	 */
     @SuppressWarnings("unchecked")
-    public Iterable<K> keys() {
+    public Iterable<K> keys() { // CAUTION: Wanky shit going down below
+        //
         class STIterator implements Iterable {
-
+            // WAT WAT WAT THE F*CK
             public Iterator<K> iterator() {
                 return new Iterator<K>() {
                     Node currentNode = first;
@@ -237,7 +241,7 @@ public class SequentialSearchST<K, V>{
                      */
                     @Override
                     public boolean hasNext() {
-                        return currentNode != null && currentNode.next != null;
+                        return currentNode != null;
                     }
 
                     /**
@@ -248,8 +252,8 @@ public class SequentialSearchST<K, V>{
                      */
                     @Override
                     public K next() {
-                        currentNode = currentNode.next;
                         current = currentNode.key;
+                        currentNode = currentNode.next;
                         return current;
                     }
 
@@ -272,13 +276,13 @@ public class SequentialSearchST<K, V>{
                      */
                     @Override
                     public void remove() {
-
-
+                        delete(current);
+                        // We've already incremented currentNode to be the next node
                     }
 
                 };
             }
-        }
+        } // What the f*ck, is this Lisp?
         return new STIterator();
     }
 }
